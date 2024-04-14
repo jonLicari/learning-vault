@@ -18,4 +18,7 @@ Microprocessor - an IC which only has a CPU inside. No RAM, ROM, and other perip
 
 Microcontroller - has a CPU, in addition with a fixed amount of RAM, ROM, and other peripherals all embedded on a single chip.  
 
-Microcomputer - computer with a microprocessor as its central processing unit. It includes a microprocessor, memory, and minimal input/ output circuitry mounted on a single pcb.**
+Microcomputer - computer with a microprocessor as its central processing unit. It includes a microprocessor, memory, and minimal input/ output circuitry mounted on a single pcb.
+
+
+[[Communication Protocols]]
