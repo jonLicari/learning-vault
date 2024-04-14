@@ -1,0 +1,1 @@
+Similar to [[BIOS]] but can boot from disks over 2 TB in size, has a GUI with network connectivity, can use a mouse in the interface, and is backwards compatible. Also allows secure boot, a built in feature that stops any digitally unsigned drivers from loading and helps to stop malicious software, such as rootkits.
