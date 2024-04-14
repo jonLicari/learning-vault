@@ -2,5 +2,8 @@ A data structure is a collection of values. Algorithms are the steps or processe
 
 Someone who understands both is a great programmer.
 
-[[Data Structures]]
-[[Algorithms]]
+## [[Data Structures]]
+## [[Algorithms]]
+
+# Complexity
+### [[Big-O]]

@@ -67,3 +67,5 @@ Time complexity reduces to O(a + b) from O(a * b).
 Practice the step-by-step problem solving process.
 Do not memorize problems, understand the tools at your disposal, the advantages, and uses of each.
 Check out the Heuristics section of the cheat sheet for some common tips.
+
+![[Master_the_Interview.png]]![[interview-cheatsheet.pdf]]
