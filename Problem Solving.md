@@ -3,7 +3,7 @@
 ## Overview
 Ultimately, companies want to know if you can solve their problems.
 The interview values the problem solving thought process.
-Understanding tradeoffs between data structures and algorithms, space and time complexity.
+Understanding tradeoffs between [[Software#Data Structures & Algorithms|data structures and algorithms]], space and time complexity.
 
 ## What Are Companies Looking For?
 1. Analytic Skills
