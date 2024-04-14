@@ -6,9 +6,16 @@
 	- [[#REQUIREMENTS|REQUIREMENTS]]
 	- [[#UDEMY STM32 CUSTOM BOOTLOADER]]
 	- [[##Boot Configurations of STM32 MCU|Boot Configurations of STM32 MCU]]
-- [[#MCU BOOTLOADER PROCEDURE|MCU BOOTLOADER PROCEDURE]]
-	- [[#Boot Configurations of STM32 MCU#Vector Table Relocation|Vector Table Relocation]]
-	- [[#Jump to New Program|Jump to New Program]]
+	- [[#MCU BOOTLOADER PROCEDURE]]
+		- [[#Vector Table Relocation]]
+		- [[#Vector Table Offset Register VTOR]]
+		- [[#Nested Vector Interrupt Controller (NVIC)]]
+		- [[#ABSENT VTOR ON CORTEX M0]]
+		- [[#HOST TO MCU TRANSFER]]
+		- [[#PAGING]]
+		- [[#CHECKSUMS AND HAMMING DISTANCE]]
+			- [[#STM32 CRC UNIT]]
+- [[#BOOTLOADER CODE FLOW]]
 
 In computing, a bootstrap loader is the first piece of code that runs when a machine starts, and is responsible for loading the rest of the OS. In modern computers it is stored in ROM, but can be accessed by hardware manipulation (switches) which can load different disk segments into memory and run them.
 
@@ -161,134 +168,78 @@ The Boot Mode selection pins are used to determine the boot area:
     9. MSP is the base address, reset handler is the base+4B address
     10. Jump to the user application reset handler
 
-
-
 ### Vector Table Relocation
 Unlike the Cortex M0+, M3 and M4, the M0 does not support vector table relocation ( it is fixed at 0x00000000). It does not use a register (VTOR) to remap the vector table so you must copy the new table into the base of RAM so it can be mapped/ shadowed at address 0. Src: [https://community.st.com/s/question/0D50X00009XkYjd/custom-bootloader-on-stm32f0](https://community.st.com/s/question/0D50X00009XkYjd/custom-bootloader-on-stm32f0)
 
-  
-
-Vector Table Offset Register VTOR 
-
+### Vector Table Offset Register VTOR 
 - Default set to 0 which is an alias for 0x08000000 (vector table location for default application, our bootloader) 
-    
-- To switch to the user application, VTOR = 0x0800xxxx (start address of user app) so that the user app’s vector table is used, not the bootloader’s
-    
-
-  
+- To switch to the user application, VTOR = 0x0800xxxx (start address of user app) so that the user app’s vector table is used, not the bootloader’s  
 
 The VTOR points to the location of the NVIC. By default, VTOR points to 0x00000000 so when power comes up, the handler whose address lives at 0x00000004 is executed to handle the reset. Later the program may modify the VTOR so that it points at some other location in memory like 0x08004000. After that point, the NVIC would read 0x0800402C to determine the address of the handler to call.
-
-  
 
 The ARM core uses a boot remapping feature which uses the physical BOOT0 pin to map the flash (which starts at 0x08000000) onto the memory space starting at 0x00000000. System memory is a ROM which usually contains some ST supplied bootloader. Some STM32s have support for extra modes like mapping the SRAM (address 0x20000000) onto 0x00000000.
 
   
-
-Nested Vector Interrupt Controller (NVIC) 
+### Nested Vector Interrupt Controller (NVIC) 
 
 - Used to prioritize peripheral interrupts while managing the code which is executed in response. 
-    
-- It works by using a lookup table at a specific location to determine what code to execute
-    
+- It works by using a lookup table at a specific location to determine what code to execute    
 - When an interrupt occurs, the NVIC will read the handler address from the table and then execute the handler
-    
+
 
 ![](https://lh7-us.googleusercontent.com/Q96GNko3veF7aWgnDXVP9e0qrAFXSm1NPkoo1EDPdI5w8rTyHkkwxPQJQ4-sjGDrZDcMLZ21KEvMjgNwM2kE0gu1VGqJTXSi-W9_kJxVf1Yq_JggtFjsAfoGrMvu7buwRawkIYpCcNbV_gdQOqyXpA)[https://www.st.com/content/ccc/resource/technical/document/programming_manual/fc/90/c7/17/a1/44/43/89/DM00051352.pdf/files/DM00051352.pdf/jcr:content/translations/en.DM00051352.pdf](https://www.st.com/content/ccc/resource/technical/document/programming_manual/fc/90/c7/17/a1/44/43/89/DM00051352.pdf/files/DM00051352.pdf/jcr:content/translations/en.DM00051352.pdf)
 
-  
-  
 
-ABSENT VTOR ON CORTEX M0
-
-  
+### ABSENT VTOR ON CORTEX M0
 
 The VTOR addresses two main issues:
-
 1. Determining the address of an interrupt when it isn’t relative to 0x00000000
-    
 2. Forwarding execution of the interrupt routine to that custom address
-    
-
   
-
-Sol’n: relocate the VT to SRAM by software 
-
+Sol’n: relocate the VT to [[SRAM]] by software 
 - Reserve a block of SRAM in the bootloader file as holding data valid while processor is running
-    
 - The user program’s linker script had its SRAM startpoint moved beyond this reserved section
-    
 - Set application load address to 0x08004000 in the linker file
-    
 - To be able to serve application interrupts, relocate VT (contains IRQ Handlers) to SRAM
-    
-
 - Copy VT from flash (mapped at app start address) to the beginning of the SRAM block (0x20000000 + sram_offset)
-    
 - Remap SRAM to address 0x00000000 using __HAL_SYSCFG_REMAPMEMORY_SRAM() macro
-    
 - Once “interrupt occurs” the M0 will fetch the IRQ Handler from the relocated VT in SRAM, then jump to execute the interrupt handler located in flash 
-    
 - This should all be done at the initialization phase of “the application” 
-    
 
 NOTE: 
 
 The reserved SRAM will only be used by the BL, and the User app will never disturb this memory. In the reserved SRAM, store a pseudo VTOR. 
 
-- The RAM must be manually initialized before use
-    
+- The [[RAM]] must be manually initialized before use
 - VT is a uint32_t (address size) array of 48 elements (see VT diagram above)
-    
 - In main
-    
+    - Configure flash prefetch achieved by calling HAL_init(), clock by SYStemClock_Config()
+    - Relocate the VT to internal RAM address using for loop to assign the flash addresses of the user application into the address array in SRAM
 
-- Configure flash prefetch achieved by calling HAL_init(), clock by SYStemClock_Config()
-    
-- Relocate the VT to internal RAM address using for loop to assign the flash addresses of the user application into the address array in SRAM
-    
 
 Q: When reading in a new firmware, how will pseudo VTOR be assigned?
 
 A: Either bootloader resets after new firmware flashed to load pseudo VTOR or I could move the operations to a function and call it after the new firmware is installed before the jump to the new reset handler.
 
-  
-
+```c
 #define SWAP_INT32(x) (((x) >> 24) | (((x) & 0x00FF0000) >> 8) | (((x) & 0x0000FF00) << 8) | ((x) << 24))
-
 tempBuf = *((uint32_t*) ram + i++);
-
 tempBuf = SWAP_INT32(tempBuf);
+```
 
-  
+### HOST TO MCU TRANSFER
 
-  
-
-HOST TO MCU TRANSFER
-
-Created .py program to connect to COM3 using pyserial library.
+Created python program to connect to Serial COM Port COMx using pyserial library.
 
 Receives a ready flag from the MCU before transferring file data to MCU
-
-[issue] ready flag was being sent but not received
-
-[sol’n] Added time.sleep delay
-
-[issue] delay allows for only 8B/s which is miles too slow
-
-[sol’n] increased baudrate from 9600 to 115200 and remove delay
-
-[issue] was a bandaid patch not a fix
-
-[sol’n] syncing delays
-
-[update] after moving code from receive interrupt callback to main, issues were identified with packet receiving. All delays from host.py and stm32 while loop were removed
-
-  
+- ready flag was being sent but not received
+- Added time.sleep delay
+- delay allows for only 8B/s which is miles too slow
+- increased baudrate from 9600 to 115200 and remove delay
+- was a bandaid patch not a fix
+- after moving code from receive interrupt callback to main, issues were identified with packet receiving. All delays from host.py and stm32 while loop were removed
 
 From the screenshot below, there is a discrepancy between the manually acquired data file on the left with the proven-to-work data written from stm32 cube on the right.
-
-  
 
 Will try to flash a binary instead of .ihex but i will need to remove the ‘.’ and ‘\n’ conditions in stm32 code.
 
@@ -298,42 +249,27 @@ Removed the conditions in stm32 code and .ihex still did not work, but the binar
 
   
   
-
-PAGING
+### PAGING
 
 Virtual memory management in the bootloader
-
 Load the kernel and other programs in their own virtual address space
 
-  
+### CHECKSUMS AND HAMMING DISTANCE
 
-CHECKSUMS AND HAMMING DISTANCE
-
-  
-
-Pairty only checks for single bit errors which, while they are the vast majority of error occurrences, do not identify 100% of error cases. 
+Parity only checks for single bit errors which, while they are the vast majority of error occurrences, do not identify 100% of error cases. 
 
 One solution is to parity check every byte as opposed to the entire message. This will increase your likelihood of detecting errors but will add a lot of overhead to your transmission. This may be an acceptable tradeoff.
 
   
+#### Overhead vs Chance of error detection
 
-Overhead vs Chance of error detection
-
-  
-
-To detect burst errors, take a parity bit for a column of data ( if each byte is on a separate row, and each bit in the yte was in a column, the column of bit[0] of every row would be parity checked).
-
-  
+To detect burst errors, take a parity bit for a column of data ( if each byte is on a separate row, and each bit in the the was in a column, the column of bit[0] of every row would be parity checked).
 
 A checksum can be any additional information sent with a message to refer if it has been sent correctly. One thing that can be done is to add the ascii values of each byte in the message together to generate a sum. For an 8-bit word the sum will be a few digits larger, so the MSB that overflow are wrapped to the beginning (LSB sIde) and added together. Then the sum of this number is inverted. This is how the Internet checksum works (except IP packets are 16-bits).
 
 One issue is that summation doesn’t detect extra/ removal of 0s, or ordering issues so it’s not perfect. 
 
-  
-
-STM32 CRC UNIT
-
-  
+#### STM32 CRC UNIT
 
 STM32F0 programmable on 32-bits
 
@@ -345,26 +281,18 @@ In the scope of the EN/IEC 60335-1 standard, they offer a means of verifying the
 
 Implement it in hardware for a reduction from 78000 clock cycles to 1200.
 
-  
-
 For ihex the checksum of the record is = 01h + NOT(xxh + xxh + …) 
 
 The last 2 hex characters are the checksum of the record (not included in the calculation of the record’s checksum obviously).
 
-  
-
 Use the HAL CRC unit to utilise the microcontrollers hardware accelerator unit. 
 
-[issue] each data word is written in the reverse in flash.
+Issues:
+- each data word is written in the reverse in flash.
+- 1 byte from bin file does not equal the equivalent hex or ascii in the CRC calculation thus the two data types cannot be directly calculated and compared. The data type of the two sets being compared must also be the same format.
 
-[issue] 1 byte from bin file does not equal the equivalent hex or ascii in the CRC calculation thus the two data types cannot be directly calculated and compared. The data type of the two sets being compared must also be the same format.
-
-  
-
-[sol’n] 
-
-1. restructure the host such that each data packet is generating a checksum value that is being sent along with the data packet to the STM32. 
-    
+Sol'n: 
+1. restructure the host such that each data packet is generating a checksum value that is being sent along with the data packet to the STM32.  
 2. On the STM32 side, each data packet is received along with the checksum value. The received packet is stored in the RAM buffer which is then run through the CRC hardware calculation unit and compared. The generated packet checksum is compared to the received checksum and if it matches, send acknowledgement back to the host to receive the next packet. If the checksum comparison does not match, send a nacknowlegdement to the host and receive the same packet again. 
 
 # BOOTLOADER CODE FLOW
@@ -383,25 +311,23 @@ Use the HAL CRC unit to utilise the microcontrollers hardware accelerator unit.�
 		5. Option: image checksum for app corruption
 		6. Option: read flash
 		7. Option: rwx eeprom
-
-
-  ## Jump to New Program
-- Create bootloader_f4 program
-- Program starts at flash origin
-- Program turns on red LED 
-- De-initialize Peripherals
-	- Deinitialize hardware
-	- Disable interrupts 
-- Jumps to new program 
-	- Set up function pointer which holds the user application reset handler from the second word 
-    - Configure the MSP by reading the value from the base address of Page where user app is stored
-    - Set the new stack pointer using __set_MSP() 
-    - Set VTOR 
-    - Read the address of the stack pointer from the first word of the user program
-    - MSP is the base address, reset handler is the base+4B address
-    - Jump to the user application reset handler 
-- Set f4blink program start flash address to FLASH_USR_ADDR 
-- Enable Interrupts again __enable_irq(); 
+4. Jump to New Program
+5. Create bootloader_f4 program
+6. Program starts at flash origin
+7. Program turns on red LED 
+8. De-initialize Peripherals
+	1. Deinitialize hardware
+	2. Disable interrupts 
+9. Jumps to new program 
+	1. Set up function pointer which holds the user application reset handler from the 2nd word 
+	2. Configure the MSP by reading the value from the base address of Page where user app is stored
+	3. Set the new stack pointer using __set_MSP() 
+	4. Set VTOR 
+	5. Read the address of the stack pointer from the first word of the user program
+	6. MSP is the base address, reset handler is the base+4B address
+	7. Jump to the user application reset handler 
+10. Set f4blink program start flash address to FLASH_USR_ADDR 
+11. Enable Interrupts again __enable_irq(); 
 
 
 
