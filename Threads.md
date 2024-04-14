@@ -153,7 +153,7 @@ In this modified example, the `executeSemaphore` is used to control the executio
 
 This approach ensures proper synchronization between the timekeeping thread and the hardware thread while avoiding the use of `terminate()`.
 
-## [[Atomic]] vs [[Volatile]] 
+## [[Atomic]] vs [[Volatile (keyword)]] 
 
 Atomic variables and volatile variables serve different purposes in multithreaded programming, and they are not interchangeable. Here's an explanation of their differences:
 
