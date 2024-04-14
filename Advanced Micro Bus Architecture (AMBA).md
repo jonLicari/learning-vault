@@ -1,0 +1,3 @@
+Standardizes on chip communication mechanisms between various functional blocks (or IP) for building high performance SOC designs. 
+
+These designs typically have one or more MCUs or MPUs along with several other components — internal memory or external memory bridge, DSP, DMA, accelerators and various other peripherals like USB, UART, PCIE, I2C etc — all integrated on a single chip. The primary motivation of AMBA protocols is to have a standard and efficient way to interconnect these blocks with re-use across multiple designs.
