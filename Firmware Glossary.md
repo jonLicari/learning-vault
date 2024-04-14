@@ -25,5 +25,5 @@ Microcomputer - computer with a microprocessor as its central processing unit. I
 
 Build Systems
 - [[Compilers]]
-- Librarians
-- Linkers
+- [[Librarians]]
+- [[Linkers]]

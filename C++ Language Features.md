@@ -5,9 +5,6 @@
 
 How to get from text file to executables.
 
-### [[Build System]]
-
-
 ## Feature List
 ### [[Pointers]]
 ### [[Templates]]
