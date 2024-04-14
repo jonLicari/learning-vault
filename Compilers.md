@@ -1,0 +1,3 @@
+[Cherno Introduction to Compilers](https://www.youtube.com/watch?v=3tIqpEmWMLI&list=PLlrATfBNZ98dudnM48yfGUldqGD0S4FFb&index=6&pp=iAQB)
+
+Header files do NOT get compiled - only .cpp files get compiled. Header code included in the .cpp file will be compiled during compilation. Note the difference between header file code being compiled in the .cpp file that includes it versus the header file itself being compiled.

@@ -1,15 +1,14 @@
 [[Firmware Glossary]]
 Best Practices
-
 Test-Driven Development
-
 [[C++ Language Features]]
+[[Build System]]
 
-
-MBED OS
+Frameworks:
+- MBED OS
 
 RTOS
-
+[[Bootloaders]]
 
 honey
 hotsauce

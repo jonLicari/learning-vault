@@ -1,0 +1,5 @@
+Set of computer instructions (firmware) which control input and output operations typically stored in EPROM, a dedicated BIOS chip, on the motherboard and used by the CPU to perform start-up procedures when the computer is turned on.
+
+It identifies all of your computer’s hardware, configures it, tests it, and searches for a boot device (optical or storage drive) to boot software, such as an [[OS]]. This is called the boot process. While the firmware is stored on non-volatile memory, the actual BIOS settings you configure are stored in a CMOS chip which is volatile memory. 
+
+Thus, even when the computer is off, the CMOS chip needs to be powered to maintain its contents or settings. This is done using a cell battery. On modern motherboards the CMOS chip is integrated with the RTC on the south bridge chipset. Limitations in BIOS led to the development of the [[UEFI]].

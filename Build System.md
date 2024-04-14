@@ -9,15 +9,15 @@ main() is the program entry point; where the program begins execution.
 
 Operators are essentially just functions. For example, `<<` is just a function operator.
 
-## Compiler
+## [[Compilers]]
 
-[[How the Compiler Works]]
+How the Compiler Works
 
 Header files do NOT get compiled - only .cpp files get compiled. Header code included in the .cpp file will be compiled during compilation. Note the difference between header file code being compiled in the .cpp file that includes it versus the header file itself being compiled.
 
-## Linker
+## [[Linkers]]
 
-[[How the Linker Works]]
+How the Linker Works
 
 Compiled source files are output into object (.o) files. It is the role of the linker to link these object files into a single (.exe) file.
 

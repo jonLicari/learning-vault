@@ -1,1 +1,0 @@
-[Cherno introduction to how the linker works](https://www.youtube.com/watch?v=H4s55GgAg0I&list=PLlrATfBNZ98dudnM48yfGUldqGD0S4FFb&index=7&pp=iAQB)
