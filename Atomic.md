@@ -1,4 +1,4 @@
-Atomic variables and [[Volatile]] variables serve different purposes in multithreaded programming, and they are not interchangeable. Here's an explanation of their differences:
+Atomic variables and [[Volatile (keyword)]] variables serve different purposes in multithreaded programming, and they are not interchangeable. Here's an explanation of their differences:
 
 1. **Atomic Variable:**
 
