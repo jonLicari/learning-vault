@@ -1,0 +1,1 @@
+A [[Data Structures|data structure]] in which only a single instance of an object can exist - that instance cannot be copied nor can other instances of this object type be created.
