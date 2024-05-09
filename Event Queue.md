@@ -23,9 +23,12 @@ int main(void) {
 }
 ```
 
-## MBED OS Source Code
+`EventQueue::call` - generates a single event immediately
+`EventQueue::call_every` - generates events continuously at a specified frequency
+`EventQueue::call_in` - generate single event after a specified time delay
+`EventQueue::cancel` - for all call functions mentioned above, events are generated with a unique ID which can be passed to EventQueue::cancel to cancel a queued event prior to dispatch
+## MBED OS Events Library
 
-## The `mbed-events` library ##
 
 The `mbed-events` library provides a flexible queue for scheduling events.
 
