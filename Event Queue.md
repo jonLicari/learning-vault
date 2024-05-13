@@ -23,10 +23,28 @@ int main(void) {
 }
 ```
 
-`EventQueue::call` - generates a single event immediately
-`EventQueue::call_every` - generates events continuously at a specified frequency
-`EventQueue::call_in` - generate single event after a specified time delay
-`EventQueue::cancel` - for all call functions mentioned above, events are generated with a unique ID which can be passed to EventQueue::cancel to cancel a queued event prior to dispatch
+```cpp
+EventQueue::dispatch_forever
+```
+- calling this will enable the queue to continuously dispatch events stored in the queue forever (literally, the implementation of this is a `while(1)` loop)
+- in the thread that this is called, this must be the last unit of work to be done as once the dispatch_forever() loop is called, it will never return
+```cpp
+EventQueue::call
+``` 
+- generates a single event immediately
+```cpp
+EventQueue::call_every
+``` 
+- generates events continuously at a specified frequency
+```cpp
+EventQueue::call_in
+``` 
+- generate single event after a specified time delay
+```cpp
+EventQueue::cancel
+``` 
+- for all call functions mentioned above, events are generated with a unique ID which can be passed to EventQueue::cancel to cancel a queued event prior to dispatch
+
 ## MBED OS Events Library
 
 
