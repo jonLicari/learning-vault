@@ -2,7 +2,7 @@
 
 1. **Atomic Variable:**
 
-   - An atomic variable is a variable that is designed to be accessed and modified by multiple [[threads]] concurrently while ensuring that operations on the variable are atomic (indivisible).
+   - An atomic variable is a variable that is designed to be accessed and modified by multiple [[Threads]] concurrently while ensuring that operations on the variable are atomic (indivisible).
 
    - Atomic variables are often used to prevent data races and ensure safe access and modification of shared variables in multithreaded environments.
 
