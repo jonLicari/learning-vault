@@ -1,4 +1,5 @@
 See also: [[Constructors]]
+
 The purpose of destructors is to free resources (memory, files, resource locks). They are invoked mechanically just before the memory of the object is released.
 
 They are declared as the same name as the class prefixed with a tilde operator. They do not have a return type nor take input parameters.

@@ -20,9 +20,25 @@ C++11 introduced two more keywords *override* and *final* to better describe our
 
 Every time you define a method in the derived class that overrides a virtual method in the base class, you should tag it override.
 
-| Example                                                                                                                                                                                                                                                                                                                                  |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| class Base  <br>{  <br>public:  <br>    virtual void f()  <br>    {  <br>        std::cout << "Base class default behaviour\n";  <br>    }  <br>};  <br>  <br>class Derived : public Base  <br>{  <br>public:  <br>    void f() override  <br>    {  <br>        std::cout << "Derived class overridden behaviour\n";  <br>    }  <br>}; |
+```cpp
+class Base  
+{  
+public:  
+    virtual void f()  
+    {  
+        std::cout << "Base class default behaviour\n";  
+    }  
+};  
+  
+class Derived : public Base  
+{  
+public:  
+    void f() override  
+    {  
+        std::cout << "Derived class overridden behaviour\n";  
+    }  
+};
+```
 
 ## Pure Virtual Function
 
