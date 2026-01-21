@@ -1,8 +1,8 @@
-Atomic variables and [[Volatile (keyword)]] variables serve different purposes in multithreaded programming, and they are not interchangeable. Here's an explanation of their differences:
+[[Atomic]] variables and volatile variables serve different purposes in multithreaded programming, and they are not interchangeable. Here's an explanation of their differences:
 
 1. **Atomic Variable:**
 
-   - An atomic variable is a variable that is designed to be accessed and modified by multiple threads concurrently while ensuring that operations on the variable are atomic (indivisible).
+   - An atomic variable is a variable that is designed to be accessed and modified by multiple [[Threads]] concurrently while ensuring that operations on the variable are atomic (indivisible).
 
    - Atomic variables are often used to prevent data races and ensure safe access and modification of shared variables in multithreaded environments.
 

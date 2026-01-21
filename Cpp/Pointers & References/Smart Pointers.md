@@ -1,7 +1,3 @@
-Also see [[References]] for similarities.
-## Raw Pointers
-
-## Smart Pointers
 
 A way of automating `new` and `delete`. It essentially wraps a raw pointer with automatic cleanup.
 
