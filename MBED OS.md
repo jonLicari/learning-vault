@@ -1,5 +1,7 @@
 [[Threads]]
 
+[[Event Queue]]
+
 ## Test Frameworks
 
 MBED OS already has built-in test frameworks: GreenTea and IceTea.

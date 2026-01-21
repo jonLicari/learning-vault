@@ -1,4 +1,5 @@
-"pointers in disguise"
+*"pointers in disguise"*
+
 A way to reference an existing variable.
 Unlike pointers, references are not new variables, don't really occupy memory.
 References are constant - once a reference is made to a variable, it cannot later be changed to refer to a different variable.
