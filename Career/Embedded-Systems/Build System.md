@@ -1,29 +1,47 @@
 
-## Pre-Processing
+## 1. Pre-Processing
 
 Prior to compilation, preprocessor directives get executed.
+- Macros get expanded
+- `#include` imports the "included" file contents into the current file.
+- `#pragma once` - states that the header file will only be included once in a single translation unit. This is important from when we chain include statements
+- Include Paths: 
+	- Angular brackets `<>` include files outside of relative directory path 
+	- Quotation marks `""` include files 
+- Operators are essentially just functions. For example, `<<` is just a function operator.
+- **Output**: single preprocessed file (`.i` for C, `.ii` for C++)
 
-#include imports the "included" file contents into the current file.
+## 2. [[Compiler| Compilation]]
 
-main() is the program entry point; where the program begins execution.
+How the [[Compiler]] Works
 
-Operators are essentially just functions. For example, `<<` is just a function operator.
+- Header files do **NOT** get compiled - only `.cpp` files get compiled. 
+- Header code included in the `.cpp` file will be compiled during compilation
+- Note the difference between header file code being compiled in the `.cpp` file that includes it versus the header file itself being compiled
+- Translates preprocessed code to assembly
+- Compiler performs optimizations if specified
+- **Output**: assembly source file (`.s`)
 
-## [[Compilers]]
+## 3. Assembler 
+- Note: Assembly refers to the code language, assembler is the utility program that translates the assembly code into machine code
+- Converts assembly to machine-readable object code
+- **Output**: object files (`.o`)
 
-How the Compiler Works
+## 4. [[Linker| Linking]]
 
-Header files do NOT get compiled - only .cpp files get compiled. Header code included in the .cpp file will be compiled during compilation. Note the difference between header file code being compiled in the .cpp file that includes it versus the header file itself being compiled.
+How the [[Linker]] Works
 
-## [[Linkers]]
+- Linker links object files, resolves symbols
+- Applies memory layout via linker script (`.ld` file)
+- **Output**: Executable and Linkable Format (`.elf`) file
 
-How the Linker Works
 
-Compiled source files are output into object (.o) files. It is the role of the linker to link these object files into a single (.exe) file.
+## 5. Binary Generation
+- Converts ELF to binary and/ or Intel Hex for flashing
+- **Output**: Binary (`.bin`), Hex (`.hex`) file
 
-`#pragma once`
-pragma is an instruction to the preprocessor
-once states that the header file will only be included once - no duplicates in a single translation unit. This is important from when we chain include statements.
+## 6. Flashing
 
-Include Paths
-Angular brackets `<>` include files outside of relative directory path 
+- Using JTAG/ SWD/ UART to upload to microcontroller
+- Programmer hardware is used to write the data to the device's flash memory 
+

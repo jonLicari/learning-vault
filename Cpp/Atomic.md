@@ -12,14 +12,4 @@ Atomic variables and [[Volatile Keyword]] variables serve different purposes in 
 
    - Atomic operations include operations like compare-and-swap, increment, and load/store operations, which are guaranteed to be atomic and thread-safe.
 
-2. **Volatile Variable:**
-
-   - A volatile variable is a variable that informs the compiler that its value may change at any time (e.g., by hardware, or by other threads), and it should not optimize or cache its value.
-
-   - Volatile is mainly a hint to the compiler, and it doesn't provide atomicity or synchronization. It's primarily used for variables that are accessed by multiple threads or by hardware, but it doesn't provide any specific guarantees about thread safety.
-
-   - In many languages, including C and C++, `volatile` is often used for memory-mapped hardware registers and for variables accessed in signal handlers or other asynchronous contexts.
-
-   - The `volatile` keyword does not guarantee atomicity, mutual exclusion, or a memory barrier; it's primarily concerned with preventing the compiler from optimizing away reads and writes to the variable.
-
 In summary, the key difference is that atomic variables are explicitly designed for synchronized and atomic access in multithreaded scenarios, while volatile variables are primarily concerned with preventing compiler optimizations and are often used in low-level programming contexts such as embedded systems and hardware I/O registers. When working with multithreaded code, if your goal is to ensure atomic access, synchronization, and thread safety, you would typically use atomic variables or appropriate synchronization mechanisms like locks, semaphores, or mutexes. Volatile variables, on the other hand, are not typically used to achieve atomicity or synchronization in multithreaded programming.

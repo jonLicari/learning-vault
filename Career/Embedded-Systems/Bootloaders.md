@@ -71,7 +71,7 @@ Based on this, I must be able to have the bootloaders interrupt vector table act
 ST Application note:
 Write Memory command: used to write data to any valid memory address i.e RAM, flash memory, option byte area
 
-Know what a [[Compilers]], [[Librarians]], and [[Linkers]] each do in the context of building firmware.
+Know what a [[Compiler]], [[Librarians]], and [[Career/Embedded-Systems/Linker]] each do in the context of building firmware.
 
 ![](https://lh7-us.googleusercontent.com/j1xuJM7k3qD17jLSGIuO3CsdUjeyF0c3VbZjeYLZEDG2FH4rtRkeSWMx0mSXvb5saAQa4HU6MMPhw4qbOepS-dZ4cwZIqPGbgElj-LofrbtlBHU-CGzduKYoK_PHrO0JBI3v36jXU_bSiEnQblv7UQ)
 

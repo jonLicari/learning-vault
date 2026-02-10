@@ -1,4 +1,4 @@
-Standard Random Access Memory is a form of RAM that retains data as long as power is being supplied to the system. Flip-flop registers comprising of 4-6 transistors along with some wiring hold each bit but never have to be refreshed. 
+Standard Random Access Memory is a form of [[RAM]] that retains data as long as power is being supplied to the system. Flip-flop registers comprising of 4-6 transistors along with some wiring hold each bit but never have to be refreshed. 
 
 Difference between SRAM and [[DRAM]]:
 - SRAM retains charge and does not need to be refreshed to retain charge
