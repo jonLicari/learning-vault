@@ -11,15 +11,17 @@ Below are **fully structured embedded systems interview packs** for **Junior, Mi
 ✅ **Debugging exercises**  
 ✅ **One take-home assignment**
 
-This is exactly the structure used by real embedded teams (medical, automotive, defense, consumer electronics, robotics):
+This is exactly the structure used by real embedded teams (medical, automotive, defence, consumer electronics, robotics):
 - [[Junior Level Embedded Interview Bank|Junior Level]]
 - [[Mid Level Embedded Interview Bank|Mid-Level]]
 - [[Senior Level Embedded Question Bank|Senior]]
 - [[Principal Level Embedded Interview Bank|Principal]]
-
+- FreeRTOS
+- [[ESP32 Mock Interview]]
+- [[ESP32 Mock Interview 2]]
 ---
 
-# 🟦 **SECTION 1 — Essential C/C++ for Embedded (Fundamentals)**
+#  **SECTION 1 — Essential C/C++ for Embedded (Fundamentals)**
 
 ### **C / Low-level**
 
@@ -75,7 +77,7 @@ This is exactly the structure used by real embedded teams (medical, automotive, 
 
 ---
 
-# 🟦 **SECTION 2 — Bit Manipulation, Registers, and Embedded Logic**
+# **SECTION 2 — Bit Manipulation, Registers, and Embedded Logic**
 
 ### **Registers & Hardware Access**
 
@@ -119,7 +121,7 @@ This is exactly the structure used by real embedded teams (medical, automotive, 
 
 ---
 
-# 🟦 **SECTION 3 — RTOS and Concurrency**
+# **SECTION 3 — RTOS and Concurrency**
 
 ### **RTOS Concepts**
 
@@ -163,7 +165,7 @@ This is exactly the structure used by real embedded teams (medical, automotive, 
 
 ---
 
-# 🟦 **SECTION 4 — MCU Architecture, Peripherals, and Timing**
+# **SECTION 4 — MCU Architecture, Peripherals, and Timing**
 
 ### **Hardware Basics**
 
@@ -197,7 +199,7 @@ This is exactly the structure used by real embedded teams (medical, automotive, 
 
 ---
 
-# 🟦 **SECTION 5 — Debugging & Diagnostics**
+# **SECTION 5 — Debugging & Diagnostics**
 
 ### **Debugging Embedded Code**
 
@@ -227,7 +229,7 @@ This is exactly the structure used by real embedded teams (medical, automotive, 
 
 ---
 
-# 🟦 **SECTION 6 — Practical Embedded C/C++ Coding Challenges**
+# **SECTION 6 — Practical Embedded C/C++ Coding Challenges**
 
 These are common interview coding tasks:
 
@@ -264,40 +266,25 @@ These are common interview coding tasks:
 
 ---
 
-# 🟦 **SECTION 7 — Embedded C++ Design Patterns**
+# **SECTION 7 — Embedded C++ Design Patterns**
 
 Interviewers frequently ask about these patterns:
 
 1. **State Machine Pattern (Miro Samek)**
-    
 2. **RAII for peripherals**
-    
 3. **Static polymorphism (CRTP)**
-    
 4. **Non-allocating polymorphism**  
     (function pointers, variant, templates instead of virtuals)
-    
 5. **PIMPL without heap**
-    
 6. **Zero-cost drivers (compile-time configuration)**
     
 
 ---
 
-# ⭐ Want a full curated “mock embedded interview”?
-
-I can generate:
+Homework:
 
 - 10 conceptual questions
-    
 - 10 hardware questions
-    
 - 10 C/C++ coding challenges
-    
 - 5 debugging logs where you must identify the root cause
-    
 - 1 full take-home embedded project
-    
-
-Just tell me the difficulty level:  
-**junior / mid-level / senior / principal**.

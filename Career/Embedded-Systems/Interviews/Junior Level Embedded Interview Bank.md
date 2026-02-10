@@ -1,5 +1,5 @@
 ## Questions
-### **1. Conceptual Questions**
+### 1. Conceptual Questions
 
 1. What is the difference between RAM and Flash in a microcontroller?
 2. What is a GPIO pin?
@@ -7,7 +7,7 @@
 4. What is the purpose of an interrupt?
 5. What is a pull-up resistor and when do you need one?
 
-### **2. C/C++ Questions**
+### 2. C/C++ Questions
 
 1. What does `volatile` mean and why is it used in embedded C?
 2. What is the difference between `=` and `==`?
@@ -15,7 +15,7 @@
 4. What does this pointer type mean: `const int* p`?
 5. Why should you avoid dynamic memory (`new/delete`) on microcontrollers?
 
-### **3. Hardware/RTOS Questions**
+### 3. Hardware/RTOS Questions
 
 1. What is an ISR?
 2. What is a timer peripheral used for?
@@ -23,7 +23,7 @@
 4. What is PWM used for?
 5. What is a watchdog timer?
 
-### **4. Coding Challenges**
+### 4. Coding Challenges
 
 1. Toggle a bit in a register:
 
@@ -36,7 +36,7 @@
 4. Remove duplicates from an array of integers (fixed size).
 5. Implement a simple debounce (using a counter-based method).
 
-### **5. Debugging Exercise**
+### 5. Debugging Exercise
 
 **Problem:** A loop never ends.
 
@@ -49,7 +49,7 @@ while (flag == 1) {
 `flag` is modified in an ISR.  
 **Question:** Why might the loop never exit? How do you fix it?
 
-### **6. Take-Home Project**
+### 6. Take-Home Project
 
 **Write a button-controlled LED driver using a simulated MCU (Wokwi).**  
 Requirements:
@@ -60,14 +60,12 @@ Requirements:
 - Include comments and a diagram
 
 ---
-
-
----
 ## Solutions
 
 ### 1. Conceptual Questions
 
 **What is the difference between RAM and Flash in a microcontroller?**
+
 - Random Access Memory is volatile (temporary) memory which only lasts for the current powercycle and is lost when power ceases to be supplied.
 	- Used for storage of temporary program data
 - Flash is non-volatile memory which retains data between powercycles
@@ -101,41 +99,37 @@ Requirements:
 - A pull-up resistor pulls the voltage up to a known HIGH voltage level when no active device is driving the signal and prevents the voltage from floating
 - Can be internal or externally added
 - The pull-up resistor biases an input pin to a known state, enabling logic transitions
-- Necessary when whenever an input may be left unconnected such as for button inputs, open-drain circuits, or shared bus lines like I2C
+- Necessary whenever an input may be left unconnected such as for button inputs, open-drain circuits, or shared bus lines like I2C
 
-### **2. C/C++ Questions**
+### 2. C/C++ Questions
 
-**What does `volatile` mean and why is it used in embedded C?**
-- volatile is a keyword identifier used to protect associated data from unwanted compiler optimization
-- It tells the compiler that the associated data may be modified outside of the program's control and thus that it must not assume that the data stays the same value between accesses 
-- This is used when data can be accessed and modified from outside of the program's control, such as Hardware registers (UART, timers), peripherals (DMA), ISRs, etc.
-- volatile ensures:
-	- Each read fetches the actual memory location
-	- Each write is performed exactly as written
-	- No reordering or elimination of accesses
-
+**What does [[Volatile Keyword|volatile]] mean and why is it used in embedded C?**
+- Compiler directive that identifies the associated data as being modifiable outside of the program's control and thus that it must not assume that the data stays the same value between accesses and prohibits compiler optimization as a result
+- Used for data that can be accessed and modified from outside of the program's control, such as hardware registers (UART, timers), peripherals (DMA), ISRs, etc.
+- Behaviour:
+	- **Reads**: Every time the volatile data is read, a `load` operation from the actual memory location is performed (no caching)
+	- **Writes**: Compiler emits a `store` operation for every volatile write (cannot merge or remove volatile writes)
+	- **Note**: Volatile does **NOT** guarantee [[Atomic|atomicity]] or synchronization
 
 **What is the difference between `=` and `==`?** 
 - `=` is an assignment operator; it assigns an rvalue to an lvalue; returns the assigned value
 - `==` is a strict equality operator; it evaluates if two expressions are strictly equal to each other; returns a boolean 
 
 **What is a segmentation fault?**
-
 - A memory access error; the program tries to access data that it is not allowed to access
 - Example: attempting to write to read-only memory, dereferencing null or uninitialized pointers, accessing freed memory
 
 **What does this pointer type mean: `const int* p`?**
-
 - This is a raw pointer to a constant integer value
 - This means that the pointer itself can change what address it points to, but the value of the integer data referenced by it must not change
 
 **Why should you avoid dynamic memory (`new/delete`) on microcontrollers?**
 
 - In general, dynamic memory allocation is risky because microcontrollers are constrained devices meaning they have limited resources so there is the potential to run out of memory
-- Dynamic allocations are also risky due as memory leaks can occur if resources are not deallocated properly
+- Dynamic allocations are also risky due as memory leaks that can occur if resources are not deallocated properly
 - Dynamically allocating data can cause fragmentation leading to unpredictable behaviour and slow overall performance
 
-### **3. Hardware/RTOS Questions**
+### 3. Hardware/RTOS Questions
 
 **What is an ISR?**
 
@@ -174,7 +168,7 @@ Requirements:
 	- it expires, indicating that the application is unresponsive, upon which the MCU is reset
 
 
-### **4. Coding Challenges**
+### 4. Coding Challenges
 
 1. Toggle a bit in a register:
 
