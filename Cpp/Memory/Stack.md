@@ -1,3 +1,4 @@
+Think **static allocation** (duh)
 
 tl;dr
 - Stores: local variables, function calls
