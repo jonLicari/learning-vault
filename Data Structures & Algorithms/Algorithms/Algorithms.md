@@ -1,4 +1,6 @@
+For LeetCode style problems, patterns can be identified to identify solutions faster. Be able to classify problems similar to how you would in school, say, for calculus, where you need to identify the type of equation in order to apply the correct integration or derivative rule to solve it.
 
+Different [[Algorithmic Problem Patterns ]] will be classified here.
 # Sorting Algorithm Cheat Sheet
 
 ## 1. Comparison-Based Sorting Algorithms
