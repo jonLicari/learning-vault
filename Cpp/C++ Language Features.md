@@ -19,7 +19,7 @@ Video Series on learning Cpp: [The Cherno](https://www.youtube.com/playlist?list
 - [[Volatile Keyword]]
 
 ### OOP
-- [[Classes]]
+- [[Classes vs Structs]]
 - [[Object Oriented Programming]]
 - object lifetime 
 - modules

@@ -36,6 +36,9 @@ public:
 class Base { };
 class Derived : public Base { };
 ```
+
+TODO
+- Deep dive, sequence of creation/ destruction for inherited classes, multiple-inherited classes, overridden methods etc.
 ## Polymorphism
 
 *"Call derived behaviour through base pointer/reference."*
@@ -53,6 +56,10 @@ Base* b = new Derived;
 b->f();   // calls Derived::f
 ```
 
+TODO 
+- Runtime polymorphism
+- V Tables
+- Memory implications
 
 ### Good Practices
 

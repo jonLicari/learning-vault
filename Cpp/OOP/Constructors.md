@@ -1,6 +1,6 @@
-
 See also: [[Destructors]]
 
+Constructors get called when an object is created and essentially simplify the initialization process.
 #### Core Constructor Types
 
 1. [[Default constructor]]

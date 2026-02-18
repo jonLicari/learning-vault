@@ -1,3 +1,4 @@
+## [[Classes]]
 Default visibility (when unspecified) is **private** 
 ```cpp
 class Player {
@@ -12,7 +13,7 @@ public: // if unspecified, defaults to private
 }; // necessary semi-colon
 ```
 
-## Structs
+## [[Structs]]
 
 Default visibility (when unspecified) is **public**
 

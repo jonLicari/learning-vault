@@ -9,6 +9,8 @@ Someone who understands both is a great programmer.
 
 ## [[Problem Solving]]
 
+### [[Best Practices]]
+
 ## Applications
 ### [[Firmware]]
 ### [[Backend]]
