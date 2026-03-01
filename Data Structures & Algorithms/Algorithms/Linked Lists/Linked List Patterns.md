@@ -33,3 +33,4 @@ processed part   |   unprocessed part
 
 #### 2. Always Ensure a Path to Every Remaining Node Exists
 Never break a chain and risk losing nodes - always track chains.
+
