@@ -1,6 +1,7 @@
 -----
 # How to Solve Coding Problems
 ## Overview
+
 Ultimately, companies want to know if you can solve their problems.
 The interview values the problem solving thought process.
 Understanding tradeoffs between [[Software#Data Structures & Algorithms|data structures and algorithms]], space and time complexity.
@@ -16,6 +17,8 @@ Understanding tradeoffs between [[Software#Data Structures & Algorithms|data str
     - Does your personality match the company's? Do you fit well, and play well with others?
 
 Know when and why you would use certain data structures and algorithms over others.
+
+Understand the structure and patterns of problems to be able to classify and solve problems easier. Understand [[Algorithmic Problem Patterns]].
 
 See cheatsheet.pdf for an Interview Cheat Sheet.
 
